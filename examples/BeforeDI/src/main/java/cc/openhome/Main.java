@@ -13,11 +13,11 @@ import cc.openhome.model.UserService;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
-		Properties prop = new Properties();
-		prop.load(Main.class.getClassLoader().getResourceAsStream("jdbc.properties"));		
-		
-		JdbcDataSource dataSource = new JdbcDataSource();
+    public static void main(String[] args) throws IOException {
+        Properties prop = new Properties();
+        prop.load(Main.class.getClassLoader().getResourceAsStream("jdbc.properties"));        
+        
+        JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setURL(prop.getProperty("cc.openhome.jdbcUrl"));
         dataSource.setUser(prop.getProperty("cc.openhome.user"));
         dataSource.setPassword(prop.getProperty("cc.openhome.password"));
@@ -34,6 +34,6 @@ public class Main {
                            message.getBlabla());
                    });
 
-	}
+    }
 
 }
