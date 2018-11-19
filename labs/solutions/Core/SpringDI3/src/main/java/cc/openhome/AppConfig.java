@@ -27,7 +27,7 @@ public class AppConfig {
 	private String password;
 		
 	@Profile("dev")
-    @Bean(destroyMethod="close")
+    @Bean
     public DataSource getDataSource() {
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setURL(jdbcUrl);
