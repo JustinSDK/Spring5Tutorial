@@ -20,6 +20,8 @@ public class AccountDAOLoggingProxy implements AccountDAO {
 	
 	@Override
 	public void createAccount(Account acct) {
+		logger.info(String.format("%s.createAccount(%s)",
+				target.getClass().getName(), acct));        
 		target.createAccount(acct);
 	}
 
