@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] ags) {
         ApplicationContext context = 
                 new AnnotationConfigApplicationContext(cc.openhome.AppConfig.class);
-        
+                
         UserService userService = context.getBean(cc.openhome.model.UserService.class);
 
         userService.messages("caterpillar")
