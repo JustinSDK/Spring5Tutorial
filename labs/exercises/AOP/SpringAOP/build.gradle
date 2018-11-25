@@ -1,0 +1,16 @@
+apply plugin: 'java-library'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.springframework:spring-test:5.1.2.RELEASE'
+
+    compile 'com.h2database:h2:1.4.196'
+
+    compile 'org.springframework:spring-context:5.1.2.RELEASE'
+    compile 'org.springframework:spring-jdbc:5.1.2.RELEASE'
+    // compile 'org.springframework:spring-aspects:5.1.2.RELEASE'    
+}
