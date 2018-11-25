@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 public class NullableProxy implements Nullable, InvocationHandler {
-	private boolean enable; 
+	private boolean enabled; 
     private Object target;
     
     public NullableProxy(Object target) {
@@ -14,16 +14,16 @@ public class NullableProxy implements Nullable, InvocationHandler {
     
 	@Override
 	public void enable() {
-		enable = true; 
+		enabled = true; 
 	}
 
 	@Override
 	public void disable() {
-		enable = false;		
+		enabled = false;		
 	}
 	
-	public boolean isEnable() {
-		return enable;
+	public boolean isEnabled() {
+		returnd enabled;
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class NullableProxy implements Nullable, InvocationHandler {
 			return method.invoke(this, args);
 		}
 		
-		if(!isEnable() && Arrays.stream(args).anyMatch(arg -> arg == null)) {
+		if(!isEnabled() && Arrays.stream(args).anyMatch(arg -> arg == null)) {
 			throw new IllegalArgumentException(
 				String.format("argument(s) of %s.%s cannot be null", 
 					target.getClass().getName(), 
