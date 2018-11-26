@@ -23,7 +23,7 @@ public class NullableProxy implements Nullable, InvocationHandler {
 	}
 	
 	public boolean isEnabled() {
-		returnd enabled;
+		return enabled;
 	}
 
 	@Override
