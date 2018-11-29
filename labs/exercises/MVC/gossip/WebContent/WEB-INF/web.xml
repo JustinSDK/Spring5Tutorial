@@ -9,6 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
   <jsp-config>
     <jsp-property-group>
       <url-pattern>*.jsp</url-pattern>
@@ -16,19 +17,41 @@
       <default-content-type>text/html</default-content-type>
     </jsp-property-group>
   </jsp-config>
+  
   <resource-ref>
     <res-ref-name>jdbc/gossip</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
     <res-sharing-scope>Shareable</res-sharing-scope>
   </resource-ref>
+
+  <security-constraint>
+      <web-resource-collection>
+          <web-resource-name>Member</web-resource-name>
+          <url-pattern>/del_message</url-pattern>
+          <url-pattern>/new_message</url-pattern>
+          <url-pattern>/logout</url-pattern>
+          <url-pattern>/member</url-pattern>
+          <http-method>GET</http-method>
+          <http-method>POST</http-method>
+      </web-resource-collection>
+      <auth-constraint>
+          <role-name>member</role-name>
+      </auth-constraint>
+  </security-constraint>
+  
   <login-config>
-    <auth-method>FORM</auth-method>
-    <form-login-config>
-      <form-login-page>/</form-login-page>
-      <form-error-page>/</form-error-page>
-    </form-login-config>
+      <auth-method>FORM</auth-method>
+      <form-login-config>
+          <form-login-page>/</form-login-page>
+          <form-error-page>/</form-error-page>
+      </form-login-config>
   </login-config>
+  
+  <security-role>
+      <role-name>member</role-name>
+  </security-role>
+
   <context-param>
     <param-name>MAIL_USER</param-name>
     <param-value>yourname@gmail.com</param-value>
@@ -37,6 +60,7 @@
     <param-name>MAIL_PASSWORD</param-name>
     <param-value>yourpassword</param-value>
   </context-param>
+  
   <error-page>
     <error-code>403</error-code>
     <location>/403.html</location>
