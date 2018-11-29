@@ -1,0 +1,45 @@
+import org.gradle.plugins.ide.eclipse.model.Facet
+ 
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+ 
+// 設置原始碼版本
+sourceCompatibility = 1.8    
+// 設置 WebApp 根目錄    
+webAppDirName = 'WebContent'
+// 設置 Java 源碼所在目錄 
+sourceSets.main.java.srcDir 'src'
+// 編譯時的原始碼編碼    
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    jcenter()
+}
+ 
+// 設置 Project Facets
+eclipse {
+    wtp {
+        facet {
+            facet name: 'jst.web', type: Facet.FacetType.fixed
+            facet name: 'wst.jsdt.web', type: Facet.FacetType.fixed
+            facet name: 'jst.java', type: Facet.FacetType.fixed
+            facet name: 'jst.web', version: '4.0'
+            facet name: 'jst.java', version: '1.8'
+            facet name: 'wst.jsdt.web', version: '1.0'
+        }
+    }
+}
+
+dependencies {
+    // Servlet API
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.0'
+    // JSP API
+    providedCompile 'javax.servlet.jsp:jsp-api:2.2'
+
+    compile 'javax.servlet:jstl:1.2'
+    compile 'com.google.guava:guava:21.0'
+    compile 'com.sun.mail:javax.mail:1.6.0'
+    compile 'com.h2database:h2:1.4.196'
+    compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20171016.1'
+}
