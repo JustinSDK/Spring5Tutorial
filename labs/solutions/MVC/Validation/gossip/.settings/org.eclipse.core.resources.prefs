@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+encoding//WebContent/403.html=UTF-8
+encoding//WebContent/WEB-INF/jsp/forgot.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/index.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/member.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/register.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/register_success.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/reset_password.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/reset_success.html=UTF-8
+encoding//WebContent/WEB-INF/jsp/reset_success.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/user.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/verify.jsp=UTF-8
+encoding//WebContent/forgotPwd.html=UTF-8
+encoding/<project>=UTF-8
