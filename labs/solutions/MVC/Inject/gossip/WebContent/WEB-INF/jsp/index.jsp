@@ -38,7 +38,7 @@
                         <td colspan='2' align='center'><input type='submit' value='登入'></td>
                     </tr>
                     <tr>
-                        <td colspan='2'><a href='forgot.html'>忘記密碼？</a></td>
+                        <td colspan='2'><a href='forgotPwd.html'>忘記密碼？</a></td>
                     </tr>
                 </table>
             </form>
