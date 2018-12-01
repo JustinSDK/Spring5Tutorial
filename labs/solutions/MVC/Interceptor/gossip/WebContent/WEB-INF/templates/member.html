@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset='UTF-8'>
+<title>Gossip 微網誌</title>
+<link rel='stylesheet' href='css/member.css' type='text/css'>
+</head>
+<body>
+
+    <div class='leftPanel'>
+        <img src='images/caterpillar.jpg' alt='Gossip 微網誌' /><br>
+        <br> <a href='logout' th:text="@{登出 {username}(username=${session.login})}">登出 xxx</a>
+    </div>
+    <form method='post' action='new_message'>
+        分享新鮮事...<br>
+        
+        <span th:if="${param.blabla != null}">訊息要 140 字以內</span>
+        
+        <textarea cols='60' rows='4' name='blabla' th:text="${param.blabla}">Blablablabla...</textarea>
+
+        <br>
+        <button type='submit'>送出</button>
+    </form>
+    <table border='0' cellpadding='2' cellspacing='2'>
+        <thead>
+            <tr>
+                <th><hr></th>
+            </tr>
+        </thead>
+        <tbody>
+
+          <tr th:each="message : ${messages}">
+              <td style='vertical-align: top;'>
+                  <span th:text="${message.username}">user name</span><br> 
+                  <span th:utext="${message.blabla}">blabla</span><br>
+                  <span th:text="${message.localDateTime}">time here</span>
+                  <form method='post' action='del_message'>
+                      <input type='hidden' name='millis' th:value='${message.millis}'>
+                      <button type='submit'>刪除</button>
+                  </form>                                  
+                  <hr>
+              </td>            
+          </tr>
+
+        </tbody>
+    </table>
+    <hr>
+</body>
+</html>
