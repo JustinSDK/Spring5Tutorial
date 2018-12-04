@@ -1,0 +1,40 @@
+import org.gradle.plugins.ide.eclipse.model.Facet
+ 
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+ 
+sourceCompatibility = 1.8    
+webAppDirName = 'WebContent'
+sourceSets.main.java.srcDir 'src'
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    jcenter()
+}
+ 
+eclipse {
+    wtp {
+        facet {
+            facet name: 'jst.web', type: Facet.FacetType.fixed
+            facet name: 'wst.jsdt.web', type: Facet.FacetType.fixed
+            facet name: 'jst.java', type: Facet.FacetType.fixed
+            facet name: 'jst.web', version: '4.0'
+            facet name: 'jst.java', version: '1.8'
+            facet name: 'wst.jsdt.web', version: '1.0'
+        }
+    }
+}
+
+dependencies {
+    // Servlet API
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.0'
+    // JSP API
+    providedCompile 'javax.servlet.jsp:jsp-api:2.2'
+    
+    compile 'org.springframework:spring-context:5.1.2.RELEASE' 
+    compile 'org.springframework:spring-webmvc:5.1.2.RELEASE' 
+    compile 'org.thymeleaf:thymeleaf-spring5:3.0.11.RELEASE'
+    
+    compile 'org.springframework:spring-aspects:5.1.2.RELEASE'
+}
