@@ -21,6 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 				.withUser("caterpillar")
 				    .password(pwdEncoder.encode("12345678"))
-				    .roles("USER");
+				    .roles("MEMBER");
 	}
 }
