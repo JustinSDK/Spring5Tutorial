@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>登入表單</title>
+</head>
+<body>
+    <form method="post" action="perform_login">
+        <span th:unless="${param.error == null}" th:text="登入失敗">登入失敗</span>
+        <span th:unless="${param.logout == null}" th:text="你已經登出">你已經登出</span>
+        <h2>請登入</h2>
+        <p>
+                  名稱
+          <input type="text" name="username" required autofocus/>
+        </p>
+        <p>
+                  密碼
+          <input type="password" name="password" required/>
+        </p>
+        <input type="hidden"  th:name="${_csrf.parameterName}"  th:value="${_csrf.token}" />
+        <button type="submit">登入</button>
+    </form>
+</body>
+</html>
