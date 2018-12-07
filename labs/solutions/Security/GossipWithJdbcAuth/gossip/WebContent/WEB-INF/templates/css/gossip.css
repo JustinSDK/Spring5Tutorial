@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px
+}
+
+li,td {Arial , Helvetica, sans-serif;
+    font-size: 13px
+}
+
+hr {
+    color: #3333cc;
+    width: 300;
+    text-align: left
+}
+
+a {
+    color: #000000
+}
+
+table {
+	background-color : #cccccc
+}
+
+#login {
+	width : 250px;
+	float : left;
+}
