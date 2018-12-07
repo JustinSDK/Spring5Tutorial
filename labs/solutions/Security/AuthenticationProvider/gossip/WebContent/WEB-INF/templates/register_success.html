@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset='UTF-8'>
+<title>成功送出表單</title>
+</head>
+<body>
+	<h1 th:text="@{{username} 成功送出申請表單(username=${param.username})}">xxx 成功送出申請表單</h1>
+	請至填寫之信箱 <span th:text="${param.email}">username@xxx.xxx</span> 查看申請結果。<br><br>
+	<a href='/gossip'>回首頁</a>
+</body>
+</html>
