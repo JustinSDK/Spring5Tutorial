@@ -25,9 +25,9 @@ public class HelloFluxApplication {
 	}
 	
 	@GetMapping("/hi/{name}") 
-	public String hi(@PathVariable("name") String name, Model model) {
+	public Mono<String> hi(@PathVariable("name") String name, Model model) {
 		model.addAttribute("name", Mono.just(name));
-		return "hi";
+		return Mono.just("hi");
 	}
 	
     @GetMapping("/hello/{name}") 
