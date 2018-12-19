@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>即時資料</title>
+</head>
+<body>
+        即時資料: <span id="data">0</span>
+    
+    <script type="text/javascript">
+       new EventSource("randomNumber")
+                .addEventListener("randomNumber", 
+                    e => document.getElementById('data').innerHTML = e.data
+                );
+    </script>
+
+</body>
+</html>
