@@ -57,7 +57,7 @@ public class UserService {
     	return Flux.defer(() -> {
     		List<Message> messages = messageDAO.messagesBy(username);
             messages.sort(Comparator.comparing(Message::getMillis).reversed());
-            return Flux.fromStream(messages.stream());
+            return Flux.fromIterable(messages);
     	}).subscribeOn(scheduler);
     }   
     
@@ -85,7 +85,7 @@ public class UserService {
     }
     
     public Flux<Message> newestMessages(int n) {
-    	return Flux.defer(() -> Flux.fromStream(messageDAO.newestMessages(n).stream()))
+    	return Flux.defer(() -> Flux.fromIterable(messageDAO.newestMessages(n)))
     			   .subscribeOn(scheduler);
     }
     
