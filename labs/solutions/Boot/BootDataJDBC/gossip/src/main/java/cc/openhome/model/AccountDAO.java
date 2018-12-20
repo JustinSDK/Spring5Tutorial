@@ -19,6 +19,6 @@ public interface AccountDAO extends CrudRepository<Account, Integer> {
     void activateAccount(@Param("name") String name);
 	
 	@Modifying
-	@Query("UPDATE t_account SET password = :password WHERE name = :name")	
+	@Query("UPDATE account SET password = :password WHERE name = :name")	
     void updatePassword(@Param("name") String name, @Param("password") String password);
 }
