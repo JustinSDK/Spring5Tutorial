@@ -117,7 +117,7 @@ public class UserService {
                 return Mono.just(optionalAcct.get());
             }
             return Mono.empty();
-    	});
+    	}).subscribeOn(scheduler);
     }
 
     public Mono<Void> resetPassword(String name, String password) {
