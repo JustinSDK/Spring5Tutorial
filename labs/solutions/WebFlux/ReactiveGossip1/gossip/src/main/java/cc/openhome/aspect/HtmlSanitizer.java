@@ -6,6 +6,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.ServerWebExchangeDecorator;
+
+import reactor.core.CoreSubscriber;
+import reactor.core.publisher.Mono;
 
 @Component
 @Aspect
@@ -16,7 +22,36 @@ public class HtmlSanitizer {
     @Around("execution(* cc.openhome.controller.MemberController.newMessage(..))")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object[] args = proceedingJoinPoint.getArgs();
-        args[0] = policy.sanitize(args[0].toString());
+        ServerWebExchange decorated = new SanitizedServerWebExchange((ServerWebExchange) args[0]);
+        args[0] = decorated;
         return proceedingJoinPoint.proceed(args);
     }
+    
+    class SanitizedServerWebExchange extends ServerWebExchangeDecorator {
+    	public SanitizedServerWebExchange(ServerWebExchange origin) {
+    		super(origin);
+    	}
+
+    	@Override
+    	public Mono<MultiValueMap<String, String>> getFormData() {
+    		ServerWebExchange origin = this.getDelegate();
+    		return new Mono<MultiValueMap<String, String>>() {
+				@Override
+				public void subscribe(CoreSubscriber<? super MultiValueMap<String, String>> actual) {
+					origin.getFormData().subscribe(actual);
+				}
+
+				@Override
+				public MultiValueMap<String, String> block() {
+					MultiValueMap<String, String> multiValueMap = origin.getFormData().block();
+					multiValueMap.computeIfPresent("blabla", (param, values) -> {
+	   		    		 values.set(0, policy.sanitize(values.get(0)));
+	   		    		 return values;
+   		    	    });
+					return multiValueMap;
+				}
+    		};
+    	}	
+    }
 }
+
