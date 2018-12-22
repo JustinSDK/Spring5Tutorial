@@ -51,6 +51,7 @@ public class MemberController {
             return REDIRECT_MEMBER_PATH;
         }
         else {
+        	model.addAttribute("blabla", blabla);
             model.addAttribute("messages", userService.messages(username));
             return MEMBER_PATH;
         }

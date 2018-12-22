@@ -18,7 +18,7 @@
     <form method='post' action='new_message'>
         分享新鮮事...<br>
         
-        <span th:if="${param.blabla != null}">訊息要 140 字以內</span>
+        <span th:if="${blabla != null}">訊息要 140 字以內</span><br>
         
         <textarea cols='60' rows='4' name='blabla' th:text="${param.blabla}">Blablablabla...</textarea>
 
