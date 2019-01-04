@@ -1,2 +1,3 @@
 # Spring5Tutorial
-Spring 文件的範例資源
+
+[Spring 文件](https://openhome.cc/Gossip/Spring/)的範例資源
