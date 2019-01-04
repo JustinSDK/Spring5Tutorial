@@ -61,7 +61,7 @@ public class XyzApplication {
 				
 		model.addAttribute("title", String.format("%s 的訊息", username));
 		model.addAttribute("messages", new ArrayList<>(response.getBody().getContent()));
-		return "show";
+		return "user";
 	}
 
 
