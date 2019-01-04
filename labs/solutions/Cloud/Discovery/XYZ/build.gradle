@@ -31,6 +31,7 @@ dependencies {
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
     implementation('org.springframework.boot:spring-boot-starter-hateoas')
+    implementation('org.springframework.boot:spring-boot-starter-data-rest')
         
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
