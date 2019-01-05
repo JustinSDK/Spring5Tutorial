@@ -17,9 +17,9 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.hateoas.mvc.TypeConstrainedMappingJackson2HttpMessageConverter;
 import org.springframework.hateoas.mvc.TypeReferences;
@@ -67,8 +67,8 @@ public class RestTmplApplicationTests {
 				.get(URI.create(String.format("%s/messages", serviceUri)))
 				.build();
 		
-		ResponseEntity<PagedResources<Message>> response = 
-				restTemplate.exchange(request, new TypeReferences.PagedResourcesType<Message>() {});
+		ResponseEntity<Resources<Message>> response = 
+				restTemplate.exchange(request, new TypeReferences.ResourcesType<Message>() {});
 
 		assertTrue(response.getBody().getContent().size() > 0);
 	}
