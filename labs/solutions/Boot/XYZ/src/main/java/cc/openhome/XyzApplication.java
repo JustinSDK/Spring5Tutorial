@@ -11,8 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.TypeConstrainedMappingJackson2HttpMessageConverter;
 import org.springframework.hateoas.mvc.TypeReferences;
 import org.springframework.http.RequestEntity;
@@ -56,8 +56,8 @@ public class XyzApplication {
 				.get(URI.create(String.format("http://localhost:8080/messages/search/messagesBy?username=%s", username)))
 				.build();
 		
-		ResponseEntity<PagedResources<Message>> response = 
-				restTemplate.exchange(request, new TypeReferences.PagedResourcesType<Message>() {});
+		ResponseEntity<Resources<Message>> response = 
+				restTemplate.exchange(request, new TypeReferences.ResourcesType<Message>() {});
 				
 		model.addAttribute("title", String.format("%s 的訊息", username));
 		model.addAttribute("messages", new ArrayList<>(response.getBody().getContent()));
