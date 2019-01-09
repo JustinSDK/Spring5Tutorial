@@ -70,7 +70,7 @@ public class AccountController {
             
             Optional<Account> optionalAcct = Optional.ofNullable(accountService.tryCreateUser(
                     form.getEmail(), form.getUsername(), form.getPassword()).getContent());
-            System.out.println(optionalAcct);
+
             if(optionalAcct.isPresent()) {
                 emailService.validationLink(optionalAcct.get());
             } else {
