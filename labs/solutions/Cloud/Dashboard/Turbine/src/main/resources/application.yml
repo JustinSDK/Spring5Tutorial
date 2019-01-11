@@ -1,0 +1,21 @@
+spring:
+    application:
+        name: turbine
+
+server:
+    port: 8090
+    
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+    instance:
+        prefer-ip-address: true
+
+turbine:
+    appConfig: gossip
+    aggregator:
+        clusterConfig: default
+    clusterNameExpression: new String("default")
+    
+    
