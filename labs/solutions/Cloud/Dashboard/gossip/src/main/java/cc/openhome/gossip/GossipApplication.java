@@ -2,8 +2,8 @@ package cc.openhome.gossip;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-
-import javax.sql.DataSource;
+import java.util.Arrays;
+import java.util.Optional;
 
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
@@ -11,15 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
-//import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import cc.openhome.model.Account;
+import cc.openhome.model.AccountService;
 
 @SpringBootApplication(
     scanBasePackages={
@@ -34,20 +38,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 	    "cc.openhome.model"
     }
 )
-//@EnableHystrixDashboard
 @EnableCircuitBreaker
 @PropertySource("classpath:path.properties")
 public class GossipApplication {
+	@Autowired
+	private AccountService accountService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(GossipApplication.class, args);
 	}
-	
-	@Autowired
-	private DataSource dataSource;
-	
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -87,11 +86,18 @@ public class GossipApplication {
         	    
         	    @Override
         	    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        	        auth.jdbcAuthentication()
-        	            .passwordEncoder(passwordEncoder)
-        	            .dataSource(dataSource)
-        	            .usersByUsernameQuery("select name, password, enabled from account where name=?")
-        	            .authoritiesByUsernameQuery("select name, role from account where name=?");
+        	        auth.userDetailsService(username -> {
+        	        	Optional<Account> maybeAcct = accountService.accountByName(username);
+        	        	if(maybeAcct.isPresent()) {
+        	        		Account acct = maybeAcct.get();
+        	        		return new User(
+    	        				username, 
+            	                acct.getPassword(), 
+            	                Arrays.asList(new SimpleGrantedAuthority("ROLE_MEMBER"))
+                	        );
+        	        	}
+        	        	return null;
+        	        });
         	    }
           };
     }	
