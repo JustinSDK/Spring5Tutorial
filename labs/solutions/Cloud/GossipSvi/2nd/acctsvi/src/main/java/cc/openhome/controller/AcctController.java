@@ -52,6 +52,11 @@ public class AcctController {
 		return new Resource<>(acct, new Link(uri));
 	}
 	
+	@GetMapping("accountByName")
+	public Resource<Optional<Account>> accountByNameEmail(@RequestParam("username") String username) {
+		String uri = String.format("%s/accountByNameEmail?username=%s", linkTo(AcctController.class), username);
+		return new Resource<>(accountService.accountByName(username), new Link(uri));
+	}
 	
 	@GetMapping("accountByNameEmail")
 	public Resource<Optional<Account>> accountByNameEmail(@RequestParam("username") String username, @RequestParam String email) {

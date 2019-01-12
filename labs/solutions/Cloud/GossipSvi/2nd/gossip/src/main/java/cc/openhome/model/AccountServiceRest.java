@@ -59,4 +59,14 @@ public class AccountServiceRest implements AccountService {
 		
 		restTemplate.exchange(request, String.class);
     }
+
+	@Override
+	public Optional<Account> accountByName(String name) {
+		RequestEntity<Void> request = RequestEntity
+				.get(URI.create(String.format("http://localhost:8084/accountByName?username=%s", name)))
+				.build();
+		ResponseEntity<Resource<Account>> response = 
+				restTemplate.exchange(request, new TypeReferences.ResourceType<Account>() {});
+		return Optional.ofNullable(response.getBody().getContent());
+	}
 }
