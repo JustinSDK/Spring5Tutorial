@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface AccountDAO extends CrudRepository<Account, Integer> {
 	@Query("SELECT * FROM account WHERE name = :name")
-    Optional<Account> accountByUsername(@Param("name") String name);
+    Optional<Account> accountByUsername(@Param("name") String name); 
 	
 	@Query("SELECT * FROM account WHERE email = :email")
     Optional<Account> accountByEmail(@Param("email") String email);

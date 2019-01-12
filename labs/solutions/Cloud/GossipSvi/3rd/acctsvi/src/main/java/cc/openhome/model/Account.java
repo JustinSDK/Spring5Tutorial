@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 
 public class Account {
 	@Id
-	private Integer id;
+	private Integer id; 
     private String name;
     private String email;
     private String password;

@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication(
     scanBasePackages={
         "cc.openhome.controller",
-        "cc.openhome.model"
+        "cc.openhome.model" 
     }
 )
 @EnableJdbcRepositories(

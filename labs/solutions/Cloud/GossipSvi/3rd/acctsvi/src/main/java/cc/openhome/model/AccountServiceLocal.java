@@ -59,4 +59,9 @@ public class AccountServiceLocal implements AccountService {
     public void resetPassword(String name, String password) {
         accountDAO.updatePassword(name, passwordEncoder.encode(password));
     }
+
+	@Override
+	public Optional<Account> accountByName(String name) {
+        return accountDAO.accountByUsername(name);
+	}
 }

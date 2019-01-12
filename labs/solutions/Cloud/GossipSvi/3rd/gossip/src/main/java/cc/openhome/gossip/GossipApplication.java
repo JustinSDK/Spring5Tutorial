@@ -2,8 +2,8 @@ package cc.openhome.gossip;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-
-import javax.sql.DataSource;
+import java.util.Arrays;
+import java.util.Optional;
 
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
@@ -16,8 +16,13 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import cc.openhome.model.Account;
+import cc.openhome.model.AccountService;
 
 @SpringBootApplication(
     scanBasePackages={
@@ -37,12 +42,9 @@ public class GossipApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GossipApplication.class, args);
 	}
-	
-	@Autowired
-	private DataSource dataSource;
-	
+    
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private AccountService accountService;
     
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -82,11 +84,18 @@ public class GossipApplication {
         	    
         	    @Override
         	    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        	        auth.jdbcAuthentication()
-        	            .passwordEncoder(passwordEncoder)
-        	            .dataSource(dataSource)
-        	            .usersByUsernameQuery("select name, password, enabled from account where name=?")
-        	            .authoritiesByUsernameQuery("select name, role from account where name=?");
+        	        auth.userDetailsService(username -> {
+        	        	Optional<Account> maybeAcct = accountService.accountByName(username);
+        	        	if(maybeAcct.isPresent()) {
+        	        		Account acct = maybeAcct.get();
+        	        		return new User(
+    	        				username, 
+            	                acct.getPassword(), 
+            	                Arrays.asList(new SimpleGrantedAuthority("ROLE_MEMBER"))
+                	        );
+        	        	}
+        	        	return null;
+        	        });
         	    }
           };
     }	

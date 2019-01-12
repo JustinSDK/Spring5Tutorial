@@ -1,5 +1,7 @@
 package cc.openhome.model;
 
+import java.util.Optional;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.hateoas.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,4 +25,7 @@ public interface AccountService {
     
 	@PutMapping("resetPassword?username={username}&password={password}")
     void resetPassword(@PathVariable("username") String name, @PathVariable("password") String password);
+
+	@GetMapping("accountByName?username={username}")
+	Optional<Account> accountByName(@PathVariable("username") String username);
 }
