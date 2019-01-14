@@ -1,0 +1,17 @@
+spring:
+    application:
+        name: spring-gateway
+    cloud:
+        gateway:
+            default-filters:
+                - RewritePath=/api/.*?/(?<remaining>.*), /$\{remaining}
+            routes: 
+                - predicates:
+                    - Path=/api/acct/**
+                  uri: lb://acctsvi
+                - predicates:
+                    - Path=/api/msg/**
+                  uri: lb://msgsvi     
+                - predicates:
+                    - Path=/api/email/**
+                  uri: lb://email                                 
