@@ -1,6 +1,6 @@
 spring:
     application:
-        name: spring-gateway
+        name: gateway
     cloud:
         gateway:
             default-filters:
