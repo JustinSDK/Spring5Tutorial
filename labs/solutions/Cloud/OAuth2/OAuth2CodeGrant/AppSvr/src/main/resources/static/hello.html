@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello</title>
+</head>
+<body>
+
+<span id="console"></span>
+
+<script>
+    const href = window.location.href;
+    const frag = href.split('#')[1];
+    const params = frag.split('&');
+    const token = params.map(param => param.split('='))
+          .reduce((acc, pair) => {
+              acc[pair[0]] = pair[1];
+              return acc;
+          }, {});
+    
+    fetch('http://localhost:8080/hello', {
+        headers: {      	
+        	'Authorization': 'Bearer ' + token.access_token
+        }
+    })
+    .then(response => response.text())
+    .then(text => {
+    	document.getElementById('console').innerHTML = text;
+    });
+</script>
+
+</body>
+</html>
