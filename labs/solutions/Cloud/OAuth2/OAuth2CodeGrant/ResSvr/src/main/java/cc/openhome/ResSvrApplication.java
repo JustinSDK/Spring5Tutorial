@@ -9,7 +9,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +21,6 @@ public class ResSvrApplication {
 		SpringApplication.run(ResSvrApplication.class, args);
 	}
 
-	@CrossOrigin
 	@GetMapping("/hello")
 	public String hello(OAuth2Authentication oauth) {
 		return "hello " + oauth.getPrincipal();
