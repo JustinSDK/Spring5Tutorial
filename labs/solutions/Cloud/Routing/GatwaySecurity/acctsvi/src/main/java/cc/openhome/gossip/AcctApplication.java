@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication(
     scanBasePackages={
@@ -28,9 +27,4 @@ public class AcctApplication {
     public PasswordEncoder passwordEncoder() {
     	return new BCryptPasswordEncoder();
     }
-	
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
 }
